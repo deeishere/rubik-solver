@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<script>document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"</script>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Rubik Solver — Scan & Solve</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><span class="brand-mark"><i></i><i></i><i></i><i></i></span> RUBIK<span class="brand-light">SOLVER</span></a><div class="top-right"><div class="top-note"><span class="live-dot"></span> LOCAL CUBE SOLVER</div><button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode"></button></div></header>
+  <main>
+    <section class="intro"><div class="eyebrow">YOUR CUBE, FIGURED OUT</div><h1>Scan it. <span>Solve it.</span></h1><p>Capture each face, then watch your cube turn itself into a solution.</p></section>
+    <div class="workspace">
+      <section class="panel scan-panel">
+        <div class="panel-heading"><div><div class="step-label">STEP 01</div><h2>Scan your cube</h2></div><div class="step-count" id="stepCount">0 <span>/ 6</span></div></div>
+        <div class="face-progress" id="faceProgress"></div>
+        <div class="camera-wrap" id="cameraWrap"><video id="video" autoplay playsinline muted></video><canvas id="captureCanvas" hidden></canvas><div class="camera-placeholder" id="cameraPlaceholder"><div class="camera-icon">◉</div><strong>Camera preview</strong><span>Start your camera to scan a face</span></div><div class="scan-frame"><span></span><span></span><span></span><span></span></div><div class="camera-hint" id="cameraHint">CENTER ONE FACE IN THE FRAME</div></div>
+        <div class="camera-controls"><button class="button secondary" id="cameraButton">Start camera</button><button class="button primary" id="captureButton" disabled>Capture <span>↗</span></button><button class="button secondary" id="uploadButton">Upload photos</button><input id="photoInput" type="file" accept="image/*" multiple hidden></div>
+        <div class="orientation"><span class="info-icon">i</span><span id="orientationText">Scan faces in order U → R → F → D → L → B.</span></div>
+        <div class="face-editor"><div class="editor-top"><span>FACE COLORS</span><button id="clearButton" class="text-button">Clear all</button></div><div id="faceInputs"></div><div class="editor-help">Tap a sticker to change its color. The center sticker identifies the face.</div></div>
+        <button class="button solve-button" id="solveButton">Find my solution <span>→</span></button>
+        <div class="error-message" id="scanError"></div>
+      </section>
+      <section class="panel solution-panel">
+        <div class="panel-heading"><div><div class="step-label">STEP 02</div><h2>Your solution</h2></div><div class="move-total" id="moveTotal">— <span>MOVES</span></div></div>
+        <div class="cube-stage" id="cubeStage"><div id="cubeCanvas"></div><div class="stage-label"><span class="live-dot"></span> FRONT FACE · F &nbsp; / &nbsp; INTERACTIVE CUBE</div><div class="stage-tip">DRAG TO ROTATE</div><button class="view-reset" id="viewReset" title="Reset view">↺</button><div class="empty-overlay" id="emptyOverlay"><div class="empty-cube">✣</div><span>Your cube will appear here</span></div></div>
+        <div class="move-player"><div class="player-top"><span id="moveCounter">READY WHEN YOU ARE</span><span class="keyboard-hint">← → TO STEP</span></div><div class="move-display"><button class="icon-button" id="prevButton" disabled aria-label="Previous move">←</button><div class="current-move" id="currentMove">—</div><button class="icon-button" id="nextButton" disabled aria-label="Next move">→</button></div><div class="scrubber"><input id="moveSlider" type="range" min="0" max="0" value="0" disabled><div class="scrubber-meta"><span>START</span><span id="endLabel">FINISH</span></div></div><button class="button play-button" id="playButton" disabled><span id="playIcon">▶</span><span id="playText">Play solution</span></button></div>
+        <div class="moves-list-wrap"><div class="moves-header"><span>ALL MOVES</span><button class="text-button" id="copyButton" disabled>Copy</button></div><div id="movesList" class="moves-list"><span class="muted">Solve your cube to see the move sequence.</span></div></div>
+      </section>
+    </div>
+    <footer><span>RUBIK SOLVER · BUILT FOR THE JOY OF SOLVING</span><span>U · R · F · D · L · B</span></footer>
+  </main>
+  <script type="module" src="/static/app.js"></script>
+</body></html>
